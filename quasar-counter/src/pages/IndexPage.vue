@@ -53,11 +53,27 @@
 </style>
 
 <script setup>
-import { reactive } from 'vue'
+
+import { reactive, watch } from 'vue'
+import { useQuasar } from 'quasar'
+
+/*
+quasar
+*/
+
+const $q = useQuasar()
 
 const data = reactive({
   counter: 0,
   name: ''
+})
+
+const savedData = $q.localStorage.getItem('data')
+if (savedData) Object.assign(data, savedData)
+
+watch(data, value => {
+
+  $q.localStorage.set('data', value)
 })
 
 const increaseCounter = () => {
