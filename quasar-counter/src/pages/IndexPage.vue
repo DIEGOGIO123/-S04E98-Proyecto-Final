@@ -8,7 +8,7 @@
           icon="remove"
           size="xl"
           round
-          color="red"
+          color="orange"
         />
       </div>
       <div class="col text-center text-h2">
@@ -66,15 +66,28 @@
 
     <!-- Botones adicionales -->
     <div class="row full-width items-center q-my-md">
-      <q-btn @click="resetCounter" icon="restart_alt" size="xl" round color="blue" />
-      <q-btn
-        @click="shareProgress"
-        icon="share"
-        size="xl"
-        round
-        color="purple"
-      />
-    </div>
+  <!-- Botón de reinicio -->
+  <div class="col text-left">
+    <q-btn
+      @click="resetCounter"
+      icon="restart_alt"
+      size="xl"
+      round
+      color="blue-8"
+    />
+  </div>
+  <!-- Botón de compartir alineado a la derecha -->
+  <div class="col-auto">
+    <q-btn
+      @click="shareProgress"
+      icon="share"
+      size="xl"
+      round
+      color="purple"
+    />
+  </div>
+</div>
+
   </q-page>
 </template>
 
@@ -141,12 +154,13 @@ const decreaseCounter = () => {
     notifyUser("Has alcanzado el límite mínimo", "red");
   }
 };
-
 const resetCounter = () => {
-  state.counter = 0;
-  addToHistory("Reinició el contador");
-  updateMotivationalMessage();
+  state.counter = 0; // Reinicia el contador
+  state.history = [`Reinició el contador - ${new Date().toLocaleTimeString()}`];
+  state.motivationalMessage = "Se reinició el contador"; // Establece el mensaje motivacional
+  notifyUser("El contador se ha reiniciado", "blue"); // Notifica al usuario
 };
+
 
 // Historial de acciones
 const addToHistory = (action) => {
